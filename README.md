@@ -16,3 +16,5 @@ SDK 1.8
 
 O resultado das simulações será exibido no console.
 
+Alterações de parâmetros da simulação podem ser feitas no início da classe Main.
+
