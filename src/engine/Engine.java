@@ -26,8 +26,8 @@ public class Engine {
 
     private Boolean encerrouPorTimeOut;
 
-    public Engine(Integer quantidadeMaximaRodadas, String nomeArquivoPropriedades) throws IOException{
-        this.tabuleiro = new Tabuleiro(constroiPropriedades(nomeArquivoPropriedades));
+    public Engine(Integer quantidadeMaximaRodadas, String nomeArquivoPropriedades, Boolean propriedadesSorteadas) throws IOException{
+        this.tabuleiro = new Tabuleiro(constroiPropriedades(nomeArquivoPropriedades, propriedadesSorteadas));
         this.jogadorList = geraJogadores();
         this.quantidadeMaximaRodadas = quantidadeMaximaRodadas;
         this.quantidadeTurnos = 0;
@@ -51,7 +51,7 @@ public class Engine {
         return encerrouPorTimeOut;
     }
 
-    private List<Propriedade> constroiPropriedades(String nomeArquivoPropriedades) throws IOException {
+    private List<Propriedade> constroiPropriedades(String nomeArquivoPropriedades, Boolean propriedadesSorteadas) throws IOException {
         List<Propriedade> propriedadeList = new ArrayList<>();
 
         BufferedReader bufferedReader = Files.newBufferedReader(Paths.get(nomeArquivoPropriedades));
@@ -62,6 +62,9 @@ public class Engine {
             propriedadeList.add(new Propriedade(Integer.valueOf(valores[1]), Integer.valueOf(valores[0])));
         }
 
+        if(propriedadesSorteadas){
+            Collections.shuffle(propriedadeList);
+        }
         return propriedadeList;
     }
 
