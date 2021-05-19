@@ -1,7 +1,6 @@
 package comportamentos;
 
-public class Impulsivo implements Comportamento {
-
+public class ComportamentoExigente implements Comportamento{
     @Override
     public boolean decidir(int coins, int aluguel, int preco) {
 
@@ -9,6 +8,6 @@ public class Impulsivo implements Comportamento {
             return false;
         }
 
-        return true;
+        return aluguel>50;
     }
 }

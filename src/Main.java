@@ -5,25 +5,41 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @version 1.0
+ * @Author Débora Amorim
+ */
+
 public class Main {
 
     public static void main (String args[]) throws IOException {
+
+        /**
+         * Parâmetros da simulação
+         */
 
         Integer quantidadePartidas = 300;
         Integer quantidadeRodadasMax = 1000;
         String nomeArquivoConfiguracao = "gameConfig.txt";
 
+        /**
+         * Variáveis para análise estatística
+         */
+
         Float quantidadeTurnos = Float.valueOf(0);
+        Float quantidadeRodadas = Float.valueOf(0);
         Float vitoriasImpulsivo = Float.valueOf(0);
         Float vitoriasExigente = Float.valueOf(0);
         Float vitoriasCauteloso = Float.valueOf(0);
         Float vitoriasAleatorio = Float.valueOf(0);
         Float vitoriasPorTimeOut = Float.valueOf(0);
+        final Float[] maiorVitoria = {Float.valueOf(0)};
 
         for (int i = 0; i < quantidadePartidas; i++) {
             Engine engine = new Engine(quantidadeRodadasMax, nomeArquivoConfiguracao);
             engine.jogar();
             quantidadeTurnos += engine.getQuantidadeTurnos();
+            quantidadeRodadas += engine.getQuantidadeRodadas();
             switch (engine.getVencedor()){
                 case IMPULSIVO:
                     vitoriasImpulsivo ++;
@@ -43,6 +59,7 @@ public class Main {
             }
         }
         quantidadeTurnos = quantidadeTurnos/quantidadePartidas;
+        quantidadeRodadas = quantidadeRodadas/quantidadePartidas;
         vitoriasImpulsivo = vitoriasImpulsivo/quantidadePartidas;
         vitoriasExigente = vitoriasExigente/quantidadePartidas;
         vitoriasCauteloso = vitoriasCauteloso/quantidadePartidas;
@@ -54,7 +71,6 @@ public class Main {
         mapaVitorias.put(vitoriasCauteloso, ComportamentoEnum.CAUTELOSO);
         mapaVitorias.put(vitoriasAleatorio, ComportamentoEnum.ALEATORIO);
 
-        final Float[] maiorVitoria = {Float.valueOf(0)};
         mapaVitorias.forEach((aFloat, comportamentoEnum) -> {
             if(aFloat > maiorVitoria[0]){
                 maiorVitoria[0] = aFloat;
@@ -63,6 +79,7 @@ public class Main {
 
         System.out.println(
                 "Partidas encerradas por time out: " + vitoriasPorTimeOut + "\n" +
+                        "Quantidade média de rodadas: " + quantidadeRodadas + "\n" +
                         "Quantidade média de turnos: " + quantidadeTurnos + "\n" +
                         "Vitórias - Impulsivo: " + vitoriasImpulsivo*100 + "% \n" +
                         "Vitórias - Exigente: " + vitoriasExigente*100 + "% \n" +
@@ -71,6 +88,4 @@ public class Main {
                         "Comportamento com mais vitórias: " + mapaVitorias.get(maiorVitoria[0]).toString()
         );
     }
-
-//    TODO informar comportamento que mais vence
 }

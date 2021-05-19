@@ -26,20 +26,12 @@ public class Jogador {
         return id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     public Integer getCoins() {
         return coins;
     }
 
     public ComportamentoEnum getComportamento() {
         return comportamento;
-    }
-
-    public void setComportamento(ComportamentoEnum comportamento) {
-        this.comportamento = comportamento;
     }
 
     public Boolean getFalido() {

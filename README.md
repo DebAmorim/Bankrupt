@@ -9,6 +9,14 @@ Java 8
 
 SDK 1.8
 
+## Nomenclatura
+
+<ul>
+   <li> <b>Turno:</b> Vez de cada jogador </li> 
+   <li><b>Rodada:</b> Composta pelo conjunto de turnos de cada jogador</li> 
+   <li><b>Partida:</b> Composta por todas as rodadas até haver um vencedor</li> 
+</ul>
+
 ## Como executar
 
 1. Extrair a pasta Bankrupt.zip ou clonar o projeto em <https://github.com/DebAmorim/Bankrupt>;

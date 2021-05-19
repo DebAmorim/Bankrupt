@@ -4,7 +4,6 @@ import comportamentos.*;
 import jogador.Jogador;
 import tabuleiro.Propriedade;
 import tabuleiro.Tabuleiro;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -21,6 +20,8 @@ public class Engine {
 
     private Integer quantidadeTurnos;
 
+    private Integer quantidadeRodadas;
+
     private ComportamentoEnum vencedor;
 
     private Boolean encerrouPorTimeOut;
@@ -36,6 +37,10 @@ public class Engine {
 
     public Integer getQuantidadeTurnos() {
         return quantidadeTurnos;
+    }
+
+    public Integer getQuantidadeRodadas() {
+        return quantidadeRodadas;
     }
 
     public ComportamentoEnum getVencedor() {
@@ -94,13 +99,13 @@ public class Engine {
     private Boolean decideCompra(Jogador jogador, Propriedade propriedade){
         switch (jogador.getComportamento()){
             case IMPULSIVO:
-                return new Impulsivo().decidir(jogador.getCoins(), propriedade.getValorAluguel(), propriedade.getValorVenda());
+                return new ComportamentoImpulsivo().decidir(jogador.getCoins(), propriedade.getValorAluguel(), propriedade.getValorVenda());
             case EXIGENTE:
-                return new Exigente().decidir(jogador.getCoins(), propriedade.getValorAluguel(), propriedade.getValorVenda());
+                return new ComportamentoExigente().decidir(jogador.getCoins(), propriedade.getValorAluguel(), propriedade.getValorVenda());
             case CAUTELOSO:
-                return new Cauteloso().decidir(jogador.getCoins(), propriedade.getValorAluguel(), propriedade.getValorVenda());
+                return new ComportamentoCauteloso().decidir(jogador.getCoins(), propriedade.getValorAluguel(), propriedade.getValorVenda());
             case ALEATORIO:
-                return new Aleatorio().decidir(jogador.getCoins(), propriedade.getValorAluguel(), propriedade.getValorVenda());
+                return new ComportamentoAleatorio().decidir(jogador.getCoins(), propriedade.getValorAluguel(), propriedade.getValorVenda());
             default:
                 return null;
         }
@@ -134,8 +139,8 @@ public class Engine {
     }
 
     public void jogar(){
-        int rodada = 0;
-        for(rodada = 0; rodada < quantidadeMaximaRodadas; rodada ++){
+        quantidadeRodadas = 0;
+        for(quantidadeRodadas = 0; quantidadeRodadas < quantidadeMaximaRodadas; quantidadeRodadas ++){
             jogadorList.forEach(jogador -> {
                 if(vencedor == null && !jogador.getFalido()){
                     if(jogador.andar(rolarDado())){
@@ -169,7 +174,7 @@ public class Engine {
                 break;
             }
         }
-        if(rodada >= quantidadeMaximaRodadas){
+        if(quantidadeRodadas >= quantidadeMaximaRodadas){
             encerrouPorTimeOut = true;
             vencedor = verificaMaiorSaldo();
         }
