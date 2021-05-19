@@ -54,7 +54,7 @@ public class Engine {
         String[] valores;
         while ((linha = bufferedReader.readLine()) != null) {
             valores = linha.split("\\s+");
-            propriedadeList.add(new Propriedade(Integer.valueOf(valores[0]), Integer.valueOf(valores[1])));
+            propriedadeList.add(new Propriedade(Integer.valueOf(valores[1]), Integer.valueOf(valores[0])));
         }
 
         return propriedadeList;
@@ -152,8 +152,7 @@ public class Engine {
                             propriedadeAtual.setProprietario(jogador);
                         }
                     } else if(!propriedadeAtual.getProprietario().getId().equals(jogador.getId())) {
-                        jogador.pagar(propriedadeAtual.getValorAluguel());
-                        propriedadeAtual.getProprietario().receber(propriedadeAtual.getValorAluguel());
+                        propriedadeAtual.getProprietario().receber(jogador.pagar(propriedadeAtual.getValorAluguel()));
                     }
 
                     if(jogador.getCoins() < 0){
@@ -174,5 +173,6 @@ public class Engine {
             encerrouPorTimeOut = true;
             vencedor = verificaMaiorSaldo();
         }
+
     }
 }

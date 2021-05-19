@@ -54,8 +54,13 @@ public class Jogador {
         return posicaoAtual;
     }
 
-    public void pagar(Integer valor){
+    public Integer pagar(Integer valor){
+        Integer pagamento = valor;
+        if(this.coins<valor){
+           pagamento = coins;
+        }
         this.coins -= valor;
+        return pagamento;
     }
 
     public void receber(Integer valor){
