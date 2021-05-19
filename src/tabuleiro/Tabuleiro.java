@@ -1,5 +1,7 @@
 package tabuleiro;
 
+import jogador.Jogador;
+
 import java.util.List;
 
 public class Tabuleiro {
@@ -19,5 +21,13 @@ public class Tabuleiro {
             return propriedadeList.get(posicaoTabuleiro);
         }
         return null;
+    }
+
+    public void liberarPropriedades(Jogador jogador){
+        propriedadeList.forEach(propriedade -> {
+            if(propriedade.getProprietario() != null && propriedade.getProprietario().getId().equals(jogador.getId())){
+                propriedade.setProprietario(null);
+            }
+        });
     }
 }

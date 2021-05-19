@@ -158,6 +158,7 @@ public class Engine {
 
                     if(jogador.getCoins() < 0){
                         jogador.setFalido(true);
+                        tabuleiro.liberarPropriedades(jogador);
                         verificarVencedor();
                     }
 
