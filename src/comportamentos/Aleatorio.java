@@ -7,6 +7,10 @@ public class Aleatorio implements Comportamento {
     public boolean decidir(int coins, int aluguel, int preco) {
         Random rand = new Random();
 
+        if(coins<preco){
+            return false;
+        }
+
         return rand.nextBoolean();
     }
 }
