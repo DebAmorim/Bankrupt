@@ -1,6 +1,5 @@
 import comportamentos.ComportamentoEnum;
 import engine.Engine;
-
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
